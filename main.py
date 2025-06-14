@@ -2,18 +2,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-df = pd.read_csv('./data/flight_delays.csv', index_col="Month")
+df = pd.read_csv('./data/insurance.csv')
 
 print(df.head())
 
 plt.figure(figsize=(10, 6))
 
-plt.title("Average Arrival Delay for Spirit Airlines Flights, by Month")
+sns.scatterplot(x=df['bmi'], y=df['charges'], hue=df['smoker'])
 
-sns.barplot(x=df.index, y=df['NK'])
-
-sns.heatmap(data=df, annot=True)
-
-plt.ylabel("Arrival delay (in minutes)")
+# sns.regplot(x=df['bmi'], y=df['charges'])
 
 plt.show()
