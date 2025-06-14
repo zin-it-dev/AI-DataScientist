@@ -2,23 +2,18 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-file_path = './data/spotify.csv'
-
-df = pd.read_csv(file_path, index_col="Date", parse_dates=True)
+df = pd.read_csv('./data/flight_delays.csv', index_col="Month")
 
 print(df.head())
 
-print(df.tail())
+plt.figure(figsize=(10, 6))
 
-print(list(df.columns))
+plt.title("Average Arrival Delay for Spirit Airlines Flights, by Month")
 
-plt.figure(figsize=(14,6))
+sns.barplot(x=df.index, y=df['NK'])
 
-plt.title("Daily Global Streams of Popular Songs in 2017-2018")
+sns.heatmap(data=df, annot=True)
 
-sns.lineplot(data=df['Shape of You'], label="Shape of You")
-sns.lineplot(data=df['Despacito'], label="Despacito")
-
-plt.xlabel("Date")
+plt.ylabel("Arrival delay (in minutes)")
 
 plt.show()
