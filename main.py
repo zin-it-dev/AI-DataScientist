@@ -1,23 +1,30 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.tree import DecisionTreeRegressor
 
-df = pd.read_csv('./data/iris.csv', index_col='Id')
+df = pd.read_csv("./data/melb_data.csv")
 
-print(df.head())
+# print(df.describe())
 
-plt.figure(figsize=(5, 4))
+# print(df.columns)
 
-# sns.histplot(data=df, x='Petal Length (cm)', hue='Species')
+df = df.dropna(axis=0)
 
-# plt.title("Histogram of Petal Lengths, by Species")
+y = df.Price
 
-# sns.kdeplot(data=df['Petal Length (cm)'], fill=True)
+features = ['Rooms', 'Bathroom', 'Landsize', 'Lattitude', 'Longtitude']
 
-# sns.jointplot(x=df['Petal Length (cm)'], y=df['Sepal Width (cm)'], kind='kde')
+X = df[features]
 
-sns.kdeplot(data=df, x='Petal Length (cm)', hue='Species', fill=True)
+# print(X.describe())
+# print(y)
 
-plt.title("Distribution of Petal Lengths, by Species")
+model = DecisionTreeRegressor(random_state=1)
 
-plt.show()
+model.fit(X, y)
+
+print("Making predictions for the following 5 houses:")
+print(X.head())
+print("The predictions are")
+print(model.predict(X.head()))
